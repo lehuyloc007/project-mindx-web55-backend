@@ -16,14 +16,5 @@ router.post("/create", async (req, res) => {
         res.status(409).json(messageCode(1, err.message));
     }
 });
-router.post("/update", async (req, res) => {
-    try {
-        res.json(messageCode(0, newUser));
-    } catch (err) {
-        res.status(409).json(messageCode(1, err.message));
-    }
-});
-
-module.exports = router;
 
 module.exports = router;

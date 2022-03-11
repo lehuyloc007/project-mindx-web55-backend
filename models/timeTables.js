@@ -17,10 +17,6 @@ const shema = new mongoose.Schema({
     },
     lstDinner: {
         type: String
-    },
-    status: {
-        type: Number,
-        default: 0
     }
 }, {timestamps: true});
 const timeTablesModel = mongoose.model("TimeTables", shema);

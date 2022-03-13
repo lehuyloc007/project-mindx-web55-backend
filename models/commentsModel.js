@@ -17,6 +17,6 @@ const shema = new mongoose.Schema({
         type: String,
         required: true
     }
-}, {timestamps: true});
+}, {timestamps: true, versionKey: false});
 const commentsModel = mongoose.model("Comments", shema);
 module.exports = commentsModel;

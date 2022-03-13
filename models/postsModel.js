@@ -5,10 +5,6 @@ const shema = new mongoose.Schema({
         type: String,
         required: true
     },
-    authorName: {
-        type: String,
-        required: true
-    },
     title: {
         type: String,
         required: true
@@ -28,22 +24,34 @@ const shema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    ingredientsId: {
-        type: Array,
+    ingredients: {
+        type: [
+            {
+                nameIngredient: {
+                    type: String,
+                    required: true
+                },
+                total: {
+                    type: Number,
+                    required: true
+                },
+                unit: {
+                    type: String,
+                    required: true
+                },
+                _id : false
+            }
+        ],
         default: []
     },
     totalCalories: {
         type: Number,
         default: 0
     },
-    commentId: {
-        type: String,
-        required: true
-    },
-    likeList: {
+    usersLike: {
         type: Array,
         default: []
     }
-}, {timestamps: true});
+}, {timestamps: true, versionKey: false});
 const postsModel = mongoose.model("Posts", shema);
 module.exports = postsModel;

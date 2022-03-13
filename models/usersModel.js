@@ -28,6 +28,6 @@ const shema = new mongoose.Schema({
         type: String,
         required: true
     }
-}, {timestamps: true});
+}, {timestamps: true, versionKey: false});
 const usersModel = mongoose.model("Users", shema);
 module.exports = usersModel;

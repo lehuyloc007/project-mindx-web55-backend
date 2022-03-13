@@ -18,6 +18,6 @@ const shema = new mongoose.Schema({
     lstDinner: {
         type: String
     }
-}, {timestamps: true});
+}, {timestamps: true, versionKey: false});
 const timeTablesModel = mongoose.model("TimeTables", shema);
 module.exports = timeTablesModel;

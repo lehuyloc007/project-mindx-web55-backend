@@ -2,31 +2,23 @@ const express = require("express");
 const router = express.Router();
 
 const {authMdw} = require("../middlewares/auth");
-const postsCtrl = require("../controllers/postsController");
+const commentCtrl = require("../controllers/commemtsController");
 const messageCode = require("../common/messageCode");
 
 router.get("/", async (req, res) => {
     try {
-        const getPosts = await postsCtrl.getListPostWithPage(req.query)
-        res.json(messageCode(0, getPosts));
+        const getComments = await commentCtrl.getListCommentByIdPost(req.query)
+        res.json(messageCode(0, getComments));
     } catch (err) {
         res.status(409).json(messageCode(1, err.message));
     }
 });
-router.get("/user",authMdw, async (req, res) => {
-    try {
-        req.query.userId = req.userId;
-        const getPostUser = await postsCtrl.getListPostUserWithPage(req.query)
-        res.json(messageCode(0, getPostUser));
-    } catch (err) {
-        res.status(409).json(messageCode(1, err.message));
-    }
-});
+
 router.post("/create",authMdw, async (req, res) => {
     try {
         req.body.userId = req.userId;
-        const createPost = await postsCtrl.create(req.body)
-        res.json(messageCode(0, createPost));
+        const createComment = await commentCtrl.create(req.body)
+        res.json(messageCode(0, createComment));
     } catch (err) {
         res.status(409).json(messageCode(1, err.message));
     }
@@ -34,8 +26,8 @@ router.post("/create",authMdw, async (req, res) => {
 router.patch("/update",authMdw, async (req, res) => {
     try {
         req.body.userId = req.userId;
-        const updatePost = await postsCtrl.update(req.body)
-        res.json(messageCode(0, updatePost));
+        const updateComment = await commentCtrl.update(req.body)
+        res.json(messageCode(0, updateComment));
     } catch (err) {
         res.status(409).json(messageCode(1, err.message));
     }

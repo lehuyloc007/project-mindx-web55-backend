@@ -1,10 +1,10 @@
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-const { findByEmail } = require("../common/user");
+const { findUserByEmail } = require("../common/user");
 const usersModel = require("../models/usersModel");
 
 const login = async (email, password) => {
-    const existedUser = await findByEmail(email);
+    const existedUser = await findUserByEmail(email);
     if(!existedUser) {
         throw new Error("Email is not existed!")
     }
@@ -27,7 +27,7 @@ const login = async (email, password) => {
 }
 
 const register = async (result) => {
-    const existedUser = await findByEmail(result.email)
+    const existedUser = await findUserByEmail(result.email)
     if(existedUser) {
         throw new Error("Email is existed!")
     }

@@ -14,7 +14,7 @@ app.use(
 app.use("/", router);
 app.use("/assets", express.static('assets'));
 
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 mongoose.connect('mongodb+srv://admin:TyYwrMr3fkD0a7P7@cluster0.exdre.mongodb.net/myFirstDatabase?retryWrites=true&w=majority').then(() => {
     console.log('Connected to DB');
     app.listen(port, () => {

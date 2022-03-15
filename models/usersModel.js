@@ -20,6 +20,10 @@ const shema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    verifiEmail: {
+        type: Boolean,
+        default: false
+    },
     salt: {
         type: String,
         required: true

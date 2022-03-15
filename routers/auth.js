@@ -3,6 +3,17 @@ const router = express.Router();
 const AuthCtrl = require("../controllers/authController");
 const messageCode = require("../common/messageCode");
 
+router.get("/verifiemail", async (req, res) => {
+    try {
+        const verifiEmail = await AuthCtrl.verifiEmail(req.query);
+        if(verifiEmail._id) {
+            res.redirect('https://www.w3schools.com/')
+        }
+    } catch (err) {
+        res.status(409).json(messageCode(1, err.message));
+    }
+});
+
 router.post("/login", async (req, res) => {
     try {
         const loggedUsers = await AuthCtrl.login(req.body.email, req.body.password);

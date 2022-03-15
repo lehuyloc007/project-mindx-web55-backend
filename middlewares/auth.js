@@ -12,7 +12,7 @@ const authMdw = async (req, res, next) => {
             res.status(401).send("Invalid token");
         } else {
             const user = await findUserById(decodedInfo._id);
-            req.userId = user._id;
+            req.body.userId = user._id;
             next();
         }
     })

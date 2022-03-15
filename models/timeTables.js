@@ -5,18 +5,9 @@ const shema = new mongoose.Schema({
         type: String,
         required: true
     },
-    date: {
+    content: {
         type: String,
-        required: true
-    },
-    lstBreakfast: {
-        type: String
-    },
-    lstLunch: {
-        type: String
-    },
-    lstDinner: {
-        type: String
+        default: ""
     }
 }, {timestamps: true, versionKey: false});
 const timeTablesModel = mongoose.model("TimeTables", shema);

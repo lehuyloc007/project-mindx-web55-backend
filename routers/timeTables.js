@@ -2,30 +2,29 @@ const express = require("express");
 const router = express.Router();
 
 const {authMdw} = require("../middlewares/auth");
-const commentCtrl = require("../controllers/commemtsController");
+const timeTablesCtrl = require("../controllers/timeTablesController");
 const messageCode = require("../common/messageCode");
 
-router.get("/", async (req, res) => {
+router.get("/",authMdw, async (req, res) => {
     try {
-        const getComments = await commentCtrl.getListCommentByIdPost(req.query)
-        res.json(messageCode(0, getComments));
+        const getTimeTable = await timeTablesCtrl.getTimeTableByUserId(req.body)
+        res.json(messageCode(0, getTimeTable));
     } catch (err) {
         res.status(409).json(messageCode(1, err.message));
     }
 });
-
 router.post("/create",authMdw, async (req, res) => {
     try {
-        const createComment = await commentCtrl.create(req.body)
-        res.json(messageCode(0, createComment));
+        const createTimeTable = await timeTablesCtrl.create(req.body)
+        res.json(messageCode(0, createTimeTable));
     } catch (err) {
         res.status(409).json(messageCode(1, err.message));
     }
 });
 router.patch("/update",authMdw, async (req, res) => {
     try {
-        const updateComment = await commentCtrl.update(req.body)
-        res.json(messageCode(0, updateComment));
+        const updateTimeTable = await timeTablesCtrl.update(req.body)
+        res.json(messageCode(0, updateTimeTable));
     } catch (err) {
         res.status(409).json(messageCode(1, err.message));
     }

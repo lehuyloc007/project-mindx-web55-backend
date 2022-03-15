@@ -15,7 +15,6 @@ router.get("/", async (req, res) => {
 });
 router.get("/user",authMdw, async (req, res) => {
     try {
-        req.query.userId = req.userId;
         const getPostUser = await postsCtrl.getListPostUserWithPage(req.query)
         res.json(messageCode(0, getPostUser));
     } catch (err) {
@@ -24,7 +23,6 @@ router.get("/user",authMdw, async (req, res) => {
 });
 router.post("/create",authMdw, async (req, res) => {
     try {
-        req.body.userId = req.userId;
         const createPost = await postsCtrl.create(req.body)
         res.json(messageCode(0, createPost));
     } catch (err) {
@@ -33,7 +31,6 @@ router.post("/create",authMdw, async (req, res) => {
 });
 router.patch("/update",authMdw, async (req, res) => {
     try {
-        req.body.userId = req.userId;
         const updatePost = await postsCtrl.update(req.body)
         res.json(messageCode(0, updatePost));
     } catch (err) {

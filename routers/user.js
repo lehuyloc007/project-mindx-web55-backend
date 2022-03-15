@@ -7,7 +7,6 @@ const messageCode = require("../common/messageCode");
 
 router.patch("/update", authMdw, async (req, res) => {
     try {
-        req.body.userId = req.userId;
         const updateUser = await userCtrl.update(req.body);
         res.json(messageCode(0, updateUser));
     } catch (err) {

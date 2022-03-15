@@ -13,6 +13,15 @@ router.get("/", async (req, res) => {
         res.status(409).json(messageCode(1, err.message));
     }
 });
+router.get("/detail",authMdw, async (req, res) => {
+    try {
+        const getDetailPostById = await postsCtrl.getDetailPostById(req.query)
+        res.json(messageCode(0, getDetailPostById));
+    } catch (err) {
+        res.status(409).json(messageCode(1, err.message));
+    }
+});
+
 router.get("/user",authMdw, async (req, res) => {
     try {
         const getPostUser = await postsCtrl.getListPostUserWithPage(req.query)
@@ -21,6 +30,7 @@ router.get("/user",authMdw, async (req, res) => {
         res.status(409).json(messageCode(1, err.message));
     }
 });
+
 router.post("/create",authMdw, async (req, res) => {
     try {
         const createPost = await postsCtrl.create(req.body)

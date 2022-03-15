@@ -5,6 +5,15 @@ const create = async (result) => {
   await insertedPost.save();
   return insertedPost;
 };
+
+const getDetailPostById = async (result) => {
+  if (!result.id) {
+    throw new Error("Not id post");
+  }
+  const getPosts = await postsModel
+    .findOne({_id: result.id})
+  return getPosts;
+}
 const getListPostWithPage = async (result) => {
   if (!result.p || !result.s) {
     throw new Error("Not page or page size");
@@ -44,4 +53,4 @@ const update = async (info) => {
   }
   return updatePost
 } 
-module.exports = { create, getListPostWithPage, getListPostUserWithPage, update };
+module.exports = { create, getListPostWithPage, getListPostUserWithPage, getDetailPostById, update };

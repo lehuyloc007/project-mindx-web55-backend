@@ -6,12 +6,18 @@ const create = async (result) => {
   return insertedPost;
 };
 
+const getTopLike = async () => {
+  const getPosts = await postsModel
+    .find()
+    .sort({usersLike: -1})
+    .limit(3);
+  return getPosts;
+}
 const getDetailPostById = async (result) => {
   if (!result.id) {
     throw new Error("Not id post");
   }
-  const getPosts = await postsModel
-    .findOne({_id: result.id})
+  const getPosts = await postsModel.findOne({ _id: result.id });
   return getPosts;
 }
 const getListPostWithPage = async (result) => {
@@ -22,8 +28,8 @@ const getListPostWithPage = async (result) => {
     throw new Error("Not type post");
   }
   const getPosts = await postsModel
-    .find({type: result.t})
-    .skip((+result.p-1) * +result.s)
+    .find({ type: result.t })
+    .skip((+result.p - 1) * +result.s)
     .limit(+result.s);
   return getPosts;
 };
@@ -34,23 +40,23 @@ const getListPostUserWithPage = async (result) => {
   }
 
   const getPostsUser = await postsModel
-    .find({userId: result.userId})
-    .skip((+result.p-1) * +result.s)
+    .find({ userId: result.userId })
+    .skip((+result.p - 1) * +result.s)
     .limit(+result.s);
   return getPostsUser;
 };
 
 const update = async (info) => {
-  if(!info._id) {
+  if (!info._id) {
     throw new Error("Update post don't have Id");
   }
   const updatePost = await postsModel.findOneAndUpdate({
     _id: info._id,
     userId: info.userId
-  }, info, {new: true})
-  if(updatePost == null) {
+  }, info, { new: true })
+  if (updatePost == null) {
     throw new Error("Update error");
   }
   return updatePost
-} 
-module.exports = { create, getListPostWithPage, getListPostUserWithPage, getDetailPostById, update };
+}
+module.exports = { create, getTopLike, getListPostWithPage, getListPostUserWithPage, getDetailPostById, update };

@@ -13,7 +13,17 @@ router.get("/", async (req, res) => {
         res.status(409).json(messageCode(1, err.message));
     }
 });
-router.get("/detail",authMdw, async (req, res) => {
+
+router.get("/toplike", async (req, res) => {
+    try {
+        const getTopLike = await postsCtrl.getTopLike();
+        res.json(messageCode(0, getTopLike));
+    } catch (err) {
+        res.status(409).json(messageCode(1, err.message));
+    }
+});
+
+router.get("/detail", async (req, res) => {
     try {
         const getDetailPostById = await postsCtrl.getDetailPostById(req.query)
         res.json(messageCode(0, getDetailPostById));

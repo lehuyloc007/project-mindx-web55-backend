@@ -52,16 +52,26 @@ const register = async (result) => {
             <p style="color: black">Vui lòng bấm vào <a href="https://cooking-holics-backend.herokuapp.com/auth/verifiemail?tk=${token}">Link</a> để hoàn tất đăng ký </p>
         </div>
     </div>`;
-    sendEmail(content, result.email);
-    return {
-        infoUser: {
-            _id: insertedUser._id
-            // nameDisplay: existedUser.nameDisplay,
-            // email: existedUser.email,
-            // photoUrl: existedUser.photoUrl,
-            // listBookmark: existedUser.listBookmark,
+    const sendEmail = await sendEmail(content, result.email);
+    if(sendEmail.status == true){
+        return {
+            infoUser: {
+                _id: insertedUser._id
+            }
+        }
+    } else {
+        return {
+            infoUser: {
+                _id: insertedUser._id,
+                sendEmail: sendEmail.err
+                // nameDisplay: existedUser.nameDisplay,
+                // email: existedUser.email,
+                // photoUrl: existedUser.photoUrl,
+                // listBookmark: existedUser.listBookmark,
+            }
         }
     }
+    
 }
 
 const verifiEmail = async (info) => {
@@ -77,7 +87,7 @@ const verifiEmail = async (info) => {
         }
     })
     if(emailResult.err) {
-        throw new Error("Invalid token")
+        throw new Error("Invalid token");
     }
     const updateUser = await usersModel.findOneAndUpdate({_id: emailResult._id}, {verifiEmail: true}, {new: true})
     return updateUser

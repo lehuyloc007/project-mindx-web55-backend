@@ -26,13 +26,15 @@ const sendEmail = (content, emailTo) => {
         subject: 'Xác thực tài khoản Cooking Holics',
         html: content
     }
+    const resultSendEmail = {};
     transporter.sendMail(mainOptions, function(err, info){
-        if (err) {
-            console.log(err);
+        if(err) {
+            resultSendEmail.status = false;
+            resultSendEmail.err = err
         } else {
-            console.log('Message sent: ' +  info.response);
+            resultSendEmail.status = true;
         }
     });
-
+    return resultSendEmail;
 } 
 module.exports = sendEmail;

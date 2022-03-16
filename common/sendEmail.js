@@ -1,22 +1,30 @@
 const nodemailer =  require('nodemailer');
+
 const sendEmail = (content, emailTo) => {
     var transporter =  nodemailer.createTransport({ 
         host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+        // port: 465,
+        // secure: true,
         auth: {
-            user: 'coithanh30@gmail.com',
-            pass: 'hkqw19@g'
+            user: process.env.EMAIL_SEND,
+            pass: process.env.EMAIL_SEND_PASS
         },
-        tls: {
-            rejectUnauthorized: false
+        // tls: {
+        //     rejectUnauthorized: false
+        // }
+    });
+    transporter.verify(function(error, success) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Kết nối thành công!');
         }
     });
     
     var mainOptions = {
-        from: 'Cooking',
+        from: 'process.env.EMAIL_SEND',
         to: emailTo,
-        subject: 'Xác thực tài khoản',
+        subject: 'Xác thực tài khoản Cooking Holics',
         html: content
     }
     transporter.sendMail(mainOptions, function(err, info){

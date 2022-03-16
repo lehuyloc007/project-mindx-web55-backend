@@ -1,5 +1,6 @@
 const nodemailer =  require('nodemailer');
 const sendEmail = (content, emailTo) => {
+    console.log(1)
     var transporter =  nodemailer.createTransport({ 
         host: 'smtp.gmail.com',
         port: 587,
@@ -26,15 +27,11 @@ const sendEmail = (content, emailTo) => {
         subject: 'Xác thực tài khoản Cooking Holics',
         html: content
     }
-    const resultSendEmail = {};
     transporter.sendMail(mainOptions, function(err, info){
         if(err) {
-            resultSendEmail.status = false;
-            resultSendEmail.err = err
-        } else {
-            resultSendEmail.status = true;
-        }
+            throw new Error("Not send email")
+        } 
     });
-    return resultSendEmail;
+    
 } 
 module.exports = sendEmail;

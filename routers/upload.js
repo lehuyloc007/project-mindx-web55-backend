@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
     filename: function(req, file, cb) {
         const suffix = Date.now() + '-' + Math.round(Math.random() * 1000);
         const fileName = file.fieldname + '-'+ suffix + '-' + file.originalname
-        uploadedFile.push("http://localhost:5001/assets/"+ fileName);
+        uploadedFile.push("https://cooking-holics-backend.herokuapp.com"+ fileName);
         req.uploadedFile = uploadedFile;
         cb(null, fileName)
     }

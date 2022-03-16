@@ -49,7 +49,7 @@ const register = async (result) => {
     const content = `<div style="padding: 10px; background-color: #003375">
         <div style="padding: 10px; background-color: white;">
             <h4 style="color: #0085ff">Tạo tài khoản thành công</h4>
-            <p style="color: black">Vui lòng bấm vào <a href="https://cooking-holics-backend.herokuapp.com/verifiemail?tk=${token}">Link</a> để hoàn tất đăng ký </p>
+            <p style="color: black">Vui lòng bấm vào <a href="https://cooking-holics-backend.herokuapp.com/auth/verifiemail?tk=${token}">Link</a> để hoàn tất đăng ký </p>
         </div>
     </div>`;
     sendEmail(content, result.email);

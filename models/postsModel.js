@@ -11,7 +11,7 @@ const shema = new mongoose.Schema({
     },
     titleAlias: {
         type: String,
-        default: ""
+        default: "" 
     },
     description: {
         type: String,

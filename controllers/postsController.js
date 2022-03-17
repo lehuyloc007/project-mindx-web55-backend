@@ -70,7 +70,7 @@ const update = async (info) => {
   return updatePost
 }
 
-const likePost = (info) => {
+const likePost = async (info) => {
   const findPostByUserId = await postsModel.findOne({
     _id: info._id
   })

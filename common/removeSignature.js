@@ -7,6 +7,6 @@ const removeSignature = (str) =>{
     str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
     str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
     str = str.replace(/đ/g, "d");
-    return str;
+    return str; 
 }
 module.exports = removeSignature;

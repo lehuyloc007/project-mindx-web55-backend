@@ -1,10 +1,26 @@
+const removeSignature = require("../common/removeSignature");
 const postsModel = require("../models/postsModel");
 
 const create = async (result) => {
+  result.titleAlias = removeSignature(result.title)
   const insertedPost = new postsModel(result);
   await insertedPost.save();
   return insertedPost;
 };
+
+const getListSearchWithPage = async (query) => {
+  if (!query.k) {
+    throw new Error("Not keyworđ");
+  }
+  if (!query.p || !query.s) {
+    throw new Error("Not page or page size");
+  }
+  const getListSearch = await postsModel
+    .find({titleAlias: { $regex: new RegExp(removeSignature(query.k), "ig") } })
+    .skip((+query.p - 1) * +query.s)
+    .limit(+query.s);
+  return getListSearch;
+}
 
 const getTopLike = async () => {
   const getPosts = await postsModel
@@ -90,4 +106,4 @@ const likePost = async (info) => {
   }
   return updatePost.usersLike
 }
-module.exports = { create, getTopLike, getListPostWithPage, getListPostUserWithPage, getDetailPostById, update, likePost };
+module.exports = { create, getListSearchWithPage, getTopLike, getListPostWithPage, getListPostUserWithPage, getDetailPostById, update, likePost };

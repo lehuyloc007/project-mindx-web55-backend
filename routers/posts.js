@@ -23,6 +23,15 @@ router.get("/toplike", async (req, res) => {
     }
 });
 
+router.get("/search", async (req, res) => {
+    try {
+        const getListSearch = await postsCtrl.getListSearchWithPage(req.query);
+        res.json(messageCode(0, getListSearch));
+    } catch (err) {
+        res.status(409).json(messageCode(1, err.message));
+    }
+});
+
 router.get("/detail", async (req, res) => {
     try {
         const getDetailPostById = await postsCtrl.getDetailPostById(req.query)

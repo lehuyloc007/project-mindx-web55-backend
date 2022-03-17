@@ -9,6 +9,10 @@ const shema = new mongoose.Schema({
         type: String,
         required: true
     },
+    titleAlias: {
+        type: String,
+        default: ""
+    },
     description: {
         type: String,
         required: true

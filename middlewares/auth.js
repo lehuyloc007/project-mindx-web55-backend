@@ -12,6 +12,9 @@ const authMdw = async (req, res, next) => {
             res.status(401).send("Invalid token");
         } else {
             const user = await findUserById(decodedInfo._id);
+            if(!user){
+                throw new Error("Tocken is expire")
+            }
             req.body.userId = user._id;
             next();
         }

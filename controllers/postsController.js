@@ -75,7 +75,8 @@ const likePost = async (info) => {
     _id: info._id
   })
   const usersLike = findPostByUserId.usersLike.indexOf(info.userId);
-  if(usersLike) {
+  console.log(usersLike)
+  if(usersLike >= 0) {
     findPostByUserId.usersLike.splice(usersLike, 1)
   } else {
     findPostByUserId.usersLike.push(info.userId)

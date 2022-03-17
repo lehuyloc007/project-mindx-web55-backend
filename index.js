@@ -7,7 +7,7 @@ const router = require("./routers");
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 const URI = process.env.DATABASE_URL;
 
 app.use(express.urlencoded({ extended: true }));

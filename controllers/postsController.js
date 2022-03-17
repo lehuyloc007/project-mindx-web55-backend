@@ -50,13 +50,43 @@ const update = async (info) => {
   if (!info._id) {
     throw new Error("Update post don't have Id");
   }
+  const dataUpdate = {
+    title: info.title,
+    description: info.description,
+    content: info.content,
+    avatar: info.avatar,
+    type: info.type,
+    ingredients: info.ingredients,
+    totalCalories: info.totalCalories
+  }
   const updatePost = await postsModel.findOneAndUpdate({
     _id: info._id,
     userId: info.userId
-  }, info, { new: true })
+  }, dataUpdate, { new: true })
+
   if (updatePost == null) {
     throw new Error("Update error");
   }
   return updatePost
 }
-module.exports = { create, getTopLike, getListPostWithPage, getListPostUserWithPage, getDetailPostById, update };
+
+const likePost = (info) => {
+  const findPostByUserId = await postsModel.findOne({
+    _id: info._id
+  })
+  const usersLike = findPostByUserId.usersLike.indexOf(info.userId);
+  if(usersLike) {
+    findPostByUserId.usersLike.splice(usersLike, 1)
+  } else {
+    findPostByUserId.usersLike.push(info.userId)
+  }
+  const updatePost = await postsModel.findOneAndUpdate({
+    _id: info._id
+  }, {usersLike: findPostByUserId.usersLike}, { new: true })
+
+  if (updatePost == null) {
+    throw new Error("Update error");
+  }
+  return updatePost.usersLike
+}
+module.exports = { create, getTopLike, getListPostWithPage, getListPostUserWithPage, getDetailPostById, update, likePost };

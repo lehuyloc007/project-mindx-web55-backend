@@ -49,7 +49,7 @@ router.post("/create",authMdw, async (req, res) => {
         res.status(409).json(messageCode(1, err.message));
     }
 });
-router.patch("/update", async (req, res) => {
+router.patch("/update", authMdw, async (req, res) => {
     try {
         const updatePost = await postsCtrl.update(req.body)
         res.json(messageCode(0, updatePost));
@@ -57,7 +57,7 @@ router.patch("/update", async (req, res) => {
         res.status(409).json(messageCode(1, err.message));
     }
 });
-router.patch("/like", async (req, res) => {
+router.patch("/like",authMdw, async (req, res) => {
     try {
         const updatePost = await postsCtrl.likePost(req.body)
         res.json(messageCode(0, updatePost));

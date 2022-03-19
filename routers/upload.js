@@ -1,7 +1,19 @@
 const express= require("express");
 const multer = require("multer");
-const path = require("path")
+//const uploadFirebase = require("../common/upload");
+//const messageCode = require("../common/messageCode");
 const router = express.Router();
+
+//const storage = multer.memoryStorage()
+//const uploadMdw = multer({storage: storage});
+// router.post("/", uploadMdw.array('myFile', 12), async (req, res) => {
+//     try {
+//         const upload = await uploadFirebase(req.files)
+//         res.json(messageCode(0, upload));
+//     } catch (err) {
+//         res.status(409).json(messageCode(1, err.message));
+//     }
+// })
 
 let uploadedFile = [];
 const storage = multer.diskStorage({
@@ -20,4 +32,6 @@ const uploadMdw = multer({storage: storage});
 router.post("/", uploadMdw.array('myFile', 12), (req, res) => {
      res.send(req.uploadedFile);
 })
+
+
 module.exports = router

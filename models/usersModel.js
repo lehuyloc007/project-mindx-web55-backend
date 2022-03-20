@@ -14,7 +14,8 @@ const shema = new mongoose.Schema({
         required: true
     },
     photoUrl: {
-        type: String
+        type: String,
+        default: ""
     },
     listBookmark: {
         type: Array,

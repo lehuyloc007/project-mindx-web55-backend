@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.post("/bookmark", async (req, res) => {
+router.post("/bookmark", authMdw, async (req, res) => {
     try {
         const getListPostByListBookmark = await postsCtrl.getListPostByListBookmark(req.body);
         res.json(messageCode(0, getListPostByListBookmark));

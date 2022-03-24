@@ -75,7 +75,7 @@ const changePassword = async (result) => {
     result.hashedPassword = hashedPassword;
     const updateUser = await usersModel.findOneAndUpdate({ _id: existedUser._id },
         {
-            password: passwordNew,
+            password: result.passwordNew,
             salt: result.salt,
             hashedPassword: result.hashedPassword
         },

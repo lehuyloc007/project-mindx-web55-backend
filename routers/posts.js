@@ -14,6 +14,15 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.post("/bookmark", async (req, res) => {
+    try {
+        const getListPostByListBookmark = await postsCtrl.getListPostByListBookmark(req.body);
+        res.json(messageCode(0, getListPostByListBookmark));
+    } catch (err) {
+        res.status(409).json(messageCode(1, err.message));
+    }
+});
+
 router.get("/toplike", async (req, res) => {
     try {
         const getTopLike = await postsCtrl.getTopLike();

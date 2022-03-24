@@ -29,6 +29,7 @@ const getTopLike = async () => {
     .limit(3);
   return getPosts;
 }
+
 const getDetailPostById = async (result) => {
   if (!result.id) {
     throw new Error("Not id post");
@@ -36,6 +37,7 @@ const getDetailPostById = async (result) => {
   const getPosts = await postsModel.findOne({ _id: result.id });
   return getPosts;
 }
+
 const getListPostWithPage = async (result) => {
   if (!result.p || !result.s) {
     throw new Error("Not page or page size");
@@ -48,6 +50,27 @@ const getListPostWithPage = async (result) => {
     .skip((+result.p - 1) * +result.s)
     .limit(+result.s);
   return getPosts;
+};
+
+const getListPostByListBookmark = async (result) => {
+  if (!result.p || !result.s) {
+    throw new Error("Not page or page size");
+  }
+  if (!result.bk) {
+    throw new Error("Not List Bookmark");
+  }
+  const lstBookmart = result.bk.slice((result.p-1)*result.s, (result.p*result.s));
+  const getPostsById = () => {
+    return Promise.all(
+      lstBookmart.map(async (item) => {
+        const postItem = await postsModel.findOne({
+          _id: item,
+        });
+        return postItem;
+      })
+    ).then((val) => val);
+  };
+  return getPostsById();
 };
 
 const getListPostUserWithPage = async (result) => {
@@ -91,7 +114,6 @@ const likePost = async (info) => {
     _id: info._id
   })
   const usersLike = findPostByUserId.usersLike.indexOf(info.userId);
-  console.log(usersLike)
   if(usersLike >= 0) {
     findPostByUserId.usersLike.splice(usersLike, 1)
   } else {
@@ -106,4 +128,4 @@ const likePost = async (info) => {
   }
   return updatePost.usersLike
 }
-module.exports = { create, getListSearchWithPage, getTopLike, getListPostWithPage, getListPostUserWithPage, getDetailPostById, update, likePost };
+module.exports = { create, getListSearchWithPage, getTopLike, getListPostWithPage, getListPostUserWithPage, getDetailPostById, update, likePost, getListPostByListBookmark };

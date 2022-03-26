@@ -6,16 +6,16 @@ const shema = new mongoose.Schema({
         required: true
     },
     breakfast: {
-        type: String,
-        default: ""
+        type: Array,
+        default: []
     },
     lunch: {
-        type: String,
-        default: ""
+        type: Array,
+        default: []
     },
     dinner: {
-        type: String,
-        default: ""
+        type: Array,
+        default: []
     },
     totalCalories: {
         type: Number,

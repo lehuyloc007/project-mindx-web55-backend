@@ -1,10 +1,19 @@
+const moment = require("moment")
 const timeTablesModel = require("../models/timeTables");
 
 const create = async (result) => {
-    const hasTimeTable = await timeTablesModel
-        .findOne({ userId: result.userId });
-    if (hasTimeTable) {
-        throw new Error("TimeTable already exist");
+    const dateNow = moment();
+    result.dateEat = moment(result.dateEat, "DD/MM/YYYY");
+    if(dateNow >= result.dateEat) {
+        throw new Error("Date Eat less than or equal Date Now")
+    }
+    const getTimeTable = await timeTablesModel
+        .find({ 
+            userId: result.userId,
+            dateEat: result.dateEat
+    });
+    if (getTimeTable) {
+        throw new Error("Time Table already exist")
     }
     const insertedTimeTable = new timeTablesModel(result);
     await insertedTimeTable.save();
@@ -12,7 +21,10 @@ const create = async (result) => {
 };
 const getTimeTableByUserId = async (result) => {
     const getTimeTable = await timeTablesModel
-        .findOne({ userId: result.userId });
+        .find({ 
+            userId: result.userId,
+            dateEat: { $gte: moment() }
+    });
     return getTimeTable;
 };
 const update = async (info) => {
@@ -20,6 +32,7 @@ const update = async (info) => {
         throw new Error("Update timetable don't have Id");
     }
     const updateTimeTable = await timeTablesModel.findOneAndUpdate({
+        _id: info._id,
         userId: info.userId
     }, info, { new: true })
     if (updateTimeTable == null) {

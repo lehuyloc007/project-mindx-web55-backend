@@ -4,11 +4,11 @@ const timeTablesModel = require("../models/timeTables");
 const create = async (result) => {
     const dateNow = moment();
     result.dateEat = moment(result.dateEat, "YYYY-MM-DD");
-    if(dateNow >= result.dateEat) {
+    if(result.dateEat < dateNow) {
         throw new Error("Date Eat less than or equal Date Now")
     }
     const getTimeTable = await timeTablesModel
-        .find({ 
+        .findOne({ 
             userId: result.userId,
             dateEat: result.dateEat
     });
@@ -24,7 +24,14 @@ const getTimeTableByUserId = async (result) => {
         .find({ 
             userId: result.userId,
             dateEat: { $gte: moment() }
-    });
+        }).sort({dateEat: 1});
+   
+    await getTimeTable.map(el => {
+        if(moment() == moment(el.dateEat)) {
+            el.today = "today"
+        }
+        return el
+    })
     return getTimeTable;
 };
 const update = async (info) => {

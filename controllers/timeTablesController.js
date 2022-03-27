@@ -3,7 +3,7 @@ const timeTablesModel = require("../models/timeTables");
 
 const create = async (result) => {
     const dateNow = moment();
-    result.dateEat = moment(result.dateEat, "DD/MM/YYYY");
+    result.dateEat = moment(result.dateEat, "YYYY-MM-DD");
     if(dateNow >= result.dateEat) {
         throw new Error("Date Eat less than or equal Date Now")
     }

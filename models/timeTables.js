@@ -6,15 +6,63 @@ const shema = new mongoose.Schema({
         required: true
     },
     breakfast: {
-        type: Array,
+        type: [
+            {
+                postId: {
+                    type: String,
+                    required: true
+                },
+                title: {
+                    type: String,
+                    required: true
+                },
+                totalCalories:{
+                    type: Number,
+                    default: 0
+                },
+                _id : false
+            }
+        ],
         default: []
     },
     lunch: {
-        type: Array,
+        type: [
+            {
+                postId: {
+                    type: String,
+                    required: true
+                },
+                title: {
+                    type: String,
+                    required: true
+                },
+                totalCalories:{
+                    type: Number,
+                    default: 0
+                },
+                _id : false
+            }
+        ],
         default: []
     },
     dinner: {
-        type: Array,
+        type: [
+            {
+                postId: {
+                    type: String,
+                    required: true
+                },
+                title: {
+                    type: String,
+                    required: true
+                },
+                totalCalories:{
+                    type: Number,
+                    default: 0
+                },
+                _id : false
+            }
+        ],
         default: []
     },
     totalCalories: {

@@ -51,6 +51,10 @@ const shema = new mongoose.Schema({
     usersLike: {
         type: Array,
         default: []
+    },
+    countLike: {
+        type: Number,
+        default: 0
     }
 }, {timestamps: true, versionKey: false});
 const postsModel = mongoose.model("Posts", shema);

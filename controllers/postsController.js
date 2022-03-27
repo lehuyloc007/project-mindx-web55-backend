@@ -21,11 +21,27 @@ const getListSearchWithPage = async (query) => {
     .limit(+query.s);
   return getListSearch;
 }
+const getListSearchType1 = async (query) => {
+  if (!query.k) {
+    throw new Error("Not keyworđ");
+  }
+  // if (!query.p || !query.s) {
+  //   throw new Error("Not page or page size");
+  // }
+  const getListSearch = await postsModel
+    .find({
+      titleAlias: { $regex: new RegExp(removeSignature(query.k), "ig") },
+      type: 1
+    })
+    // .skip((+query.p - 1) * +query.s)
+    // .limit(+query.s);
+  return getListSearch;
+}
 
 const getTopLike = async () => {
   const getPosts = await postsModel
     .find()
-    .sort({usersLike: -1})
+    .sort({countLike: -1})
     .limit(3);
   return getPosts;
 }
@@ -128,4 +144,4 @@ const likePost = async (info) => {
   }
   return updatePost.usersLike
 }
-module.exports = { create, getListSearchWithPage, getTopLike, getListPostWithPage, getListPostUserWithPage, getDetailPostById, update, likePost, getListPostByListBookmark };
+module.exports = { create, getListSearchWithPage, getTopLike, getListPostWithPage, getListPostUserWithPage, getDetailPostById, update, likePost, getListPostByListBookmark, getListSearchType1 };

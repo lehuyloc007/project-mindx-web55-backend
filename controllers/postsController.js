@@ -137,7 +137,10 @@ const likePost = async (info) => {
   }
   const updatePost = await postsModel.findOneAndUpdate({
     _id: info._id
-  }, {usersLike: findPostByUserId.usersLike}, { new: true })
+  }, {
+    usersLike: findPostByUserId.usersLike,
+    totalCalories: findPostByUserId.usersLike.length
+  }, { new: true })
 
   if (updatePost == null) {
     throw new Error("Update error");

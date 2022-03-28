@@ -23,7 +23,7 @@ const shema = new mongoose.Schema({
     },
     verifiEmail: {
         type: Boolean,
-        default: false
+        default: true
     },
     salt: {
         type: String,

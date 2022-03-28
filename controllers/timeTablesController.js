@@ -2,9 +2,10 @@ const moment = require("moment")
 const timeTablesModel = require("../models/timeTables");
 
 const create = async (result) => {
-    const dateNow = moment();
+    const dateNow = moment(moment().format("YYYY-MM-DD"),"YYYY-MM-DD").valueOf();
+    const dateEat = moment(result.dateEat, "YYYY-MM-DD").valueOf();
     result.dateEat = moment(result.dateEat, "YYYY-MM-DD");
-    if(result.dateEat < dateNow) {
+    if(dateEat < dateNow) {
         throw new Error("Date Eat less than or equal Date Now")
     }
     const getTimeTable = await timeTablesModel
